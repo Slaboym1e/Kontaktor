@@ -26,7 +26,7 @@ const appChat = {
             let message = {chat_id: id, message: this.chatMessage}
             self.axios.post(api_post_send_message,  JSON.stringify(message), {headers: {'Accept':'aplication/json','Content-Type': 'application/json'}})
             .then(response => {
-                console.log(response.data);
+                //console.log(response.data);
             })
             .catch(function (error) {
                 console.log(error);
@@ -46,6 +46,13 @@ const appChat = {
             self.axios.get(api_get_chat_message + id).then((response) => {
                 this.chatMessages = response.data
             })
+        },
+        intervalFetchData: function () {
+            setInterval(() => {
+                self.axios.get(api_get_chat_message + this.currentChatId).then((response) => {
+                    this.chatMessages = response.data
+                })
+                }, 550);
         }
         // delOperation(id) {
         //     this.changeOperation.splice(id, 1)
@@ -80,7 +87,7 @@ const appChat = {
         // })
     },
     mounted() {
-        console.log(this.id)
+        this.intervalFetchData();
     }
 
 }
