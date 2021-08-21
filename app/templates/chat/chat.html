@@ -4,7 +4,11 @@
 {% endblock %}
 {% block content %}
     <div id="appchat">
+        <input v-model="uid" type="hidden" name="userId" id="uid" value="{!uid!}">
         {{chats}}
+        {{currentChatId}}
+        {{chatMessages}}
+        {{uid}}
         <div class="container-fluid bg-light">
             <div class="row">
                 {# users list #}
@@ -17,20 +21,14 @@
                             </svg>
                             <span class="fs-5 fw-semibold">Список пользователей</span>
                         </a>
-                        <div class="list-group list-group-flush border-bottom scrollarea" v-for="">
-                            <a href="#" class="list-group-item list-group-item-action active py-3 lh-tight" aria-current="true">
+                        {#:class="{active : index==0}"#}
+                        <div class="list-group list-group-flush border-bottom scrollarea">
+                            <a href="#" v-for="(chat, index) in chats" class="list-group-item list-group-item-action py-3 lh-tight" :class="{active : chat.active}" @click="choiseChat(index, chat.id)" aria-current="true" >
         <div class="d-flex w-100 align-items-center justify-content-between">
-          <strong class="mb-1">List group item heading</strong>
+          <strong class="mb-1">{{chat.title}}</strong>
           <small>Wed</small>
         </div>
-        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and date.</div>
-      </a>
-                            <a href="#" class="list-group-item list-group-item-action py-3 lh-tight">
-        <div class="d-flex w-100 align-items-center justify-content-between">
-          <strong class="mb-1">List group item heading</strong>
-          <small class="text-muted">Tues</small>
-        </div>
-        <div class="col-10 mb-1 small">Some placeholder content in a paragraph below the heading and date.</div>
+        <div class="col-10 mb-1 small">Последнее сообщение из этого чата</div>
       </a>
                         </div>
                     </div>
@@ -38,8 +36,8 @@
                 {# message list #}
                 <div class="col">
                     {# message show messages area #}
-                    <div class="row">
-                        content
+                    <div class="row" v-for="cM in chatMessages">
+                        <p>{{cM.message}}</p>
                     </div>
                     {# message send area #}
                     <div class="row border-1 rounded-2">

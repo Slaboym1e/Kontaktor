@@ -12,7 +12,7 @@ CORS(chat_api)
 @chat.route('/')
 @chat.route('/index')
 def index():
-        return render_template('chat/chat.html')
+        return render_template('chat/chat.html', uid=current_user.id)
 
 @chat.route('/getchats')
 @chat_api.route('/getchats')
