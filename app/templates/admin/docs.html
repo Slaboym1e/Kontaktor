@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Название</th>
+      <th scope="col">Занятость</th>
+      <th scope="col">Площадь</th>
+    </tr>
+  </thead>
+  <tbody>
+      {% for area in areas %}
+    <tr>
+      <th scope="row">{! area.id !}</th>
+      <td>{! area.title !}</td>
+      {% if area.user_id != "0" %}
+      <td>Занято</td>
+      {% else %}
+      <td>Свободно</td>
+      {% endif %}
+      <td>{! area.square !}</td>
+      <td><a href="more/{! area.id !}">Редактировать</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+  </table>
+</body>
+</html>
