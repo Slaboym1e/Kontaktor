@@ -17,7 +17,7 @@ def index():
 @chat_api.route('/getchats')
 @login_required
 def getchats():
-    userchats = [x.id for x in Session.query(ChatMembers.id).filter_by(member_id=current_user.id).distinct()]
+    userchats = [x.chat_id for x in Session.query(ChatMembers.chat_id).filter_by(member_id=current_user.id).distinct()]
     print(userchats)
     chats = Session.query(Chats).filter(Chats.id.in_(userchats)).all()
     Session.close()
