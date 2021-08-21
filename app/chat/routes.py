@@ -44,14 +44,15 @@ def getmessages(id):
     Session.close()
     return jsonify(dir_serialize_list(messages,['id','author_id','message','createtime']))
 
-
+@chat.route('/sendmessage',methods=['POST'])
 @chat_api.route('/sendmessage',methods=['POST'])
-@login_required
+#@login_required
 def sendmessage():
-    req_data = request.get_json()
+    req_data = request.get_json(force=True)
+    print(req_data)
     message = Messages(req_data.get('message'), req_data.get('chat_id'))
     Session.add(message)
     Session.commit()
     Session.close()
-    return jsonify({'status':'send successful'})
+    return jsonify(['Success'])
 
