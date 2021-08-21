@@ -2,7 +2,7 @@ from app import login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy import Column, Integer, String, DateTime, Date, SmallInteger
-from app import Base
+from app import Base, engine
 
 
 
@@ -25,3 +25,7 @@ def __repr__(self):
 @login.user_loader
 def load_user(user_id):
     return User.get(user_id)
+
+
+
+Base.metadata.create_all(bind=engine)
