@@ -50,9 +50,10 @@ def getmessages(id):
 def sendmessage():
     req_data = request.get_json(force=True)
     print(req_data.get('message'), req_data.get('chat_id'))
-    #message = Messages(req_data.get('message'), req_data.get('chat_id'))
-    #Session.add(message)
-    #Session.commit()
+    message = Messages(message=str(req_data.get('message')), chat_id=int(req_data.get('chat_id')),createtime=datetime.now(),author_id=current_user.id)
+    #print(message)
+    Session.add(message)
+    Session.commit()
     Session.close()
     return jsonify(['Success'])
 
