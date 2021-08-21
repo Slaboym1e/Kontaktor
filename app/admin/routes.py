@@ -43,7 +43,7 @@ def logout():
 
 @admin.route('/registre', methods=['GET', 'POST'])
 def reg():
-    user = User(username = "resident", group_id="resident")
+    user = User(username = "buhgalet", group_id="user")
     Session.add(user)
     Session.commit()
     Session.close()
