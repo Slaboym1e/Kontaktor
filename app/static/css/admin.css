@@ -1,52 +1,12 @@
-/*==============================================
-* Template Name: Kuriman.ru - Main Page
-* Authors: Pux&CO Team
-==============================================*/
-
-/*==============================================================
-# General
-==============================================================*/
 body{
     background: #F3F4F7;
 }
 
-
-/*==============================================================
-# Header
-==============================================================*/
-.bg-dark{
-   background: #333;
-   box-shadow: 0px 8px 24px 0px #33333325;
+header {
+    height: 56px;
 }
 
-
-
-/*------------------------------
- # Class icons
-------------------------------*/
-#header .icons .nav-link{
-
-    padding: 0 8px;
-    display: flex;
-    align-items: center;
-    height: 40px;
-
-    color: #eee;
-    font-weight: 400;
-    font-size: 14px;
-}
-#header .icons .nav-link:hover{ color: #fff; }
-#header .icons .fa-user-circle{
-    font-size: 24px;
-}
-/*==============================================================
-# Main
-==============================================================*/
-.sidebar{
-
-    top: 0;
-    bottom: 0;
-    left: 0;
-    z-index: 100;
-    padding: 56px;
+.navbar-brand{
+    font-size: 32px !important;
+    font-weight: 600;
 }
