@@ -8,6 +8,9 @@ app.config.from_object(config)
 db = SQLAlchemy(app)
 
 from app.main.routes import main
+from app.admin.routes import admin
+
+
 
 app.register_blueprint(main, url_prefix="/")
 app.register_blueprint(admin, url_prefix="/admin")
