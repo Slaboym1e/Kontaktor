@@ -6,6 +6,7 @@ from app import Session
 from app.chat.models import Chats,ChatMembers,Messages
 from app.chat.utils import mserialize_list, dir_serialize_list, enumList
 from app.admin.models import User
+from datetime import datetime
 CORS(chat_api)
 
 @chat.route('/')
@@ -20,6 +21,7 @@ def getchats():
     userchats = [x.chat_id for x in Session.query(ChatMembers.chat_id).filter_by(member_id=current_user.id).distinct()]
     print(userchats)
     chats = Session.query(Chats).filter(Chats.id.in_(userchats)).all()
+
     Session.close()
     return jsonify(mserialize_list(chats))
 
@@ -28,10 +30,12 @@ def getchats():
 @chat_api.route('/getmessages-<id>')
 @login_required
 def getmessages(id):
-    check = Session.query(ChatMembers).filter_by(chat_id=id,member_id=current_user.id).all()
-    if check is None:
+    print(datetime.now())
+    check = Session.query(ChatMembers).filter_by(chat_id=id, member_id=current_user.id).all()
+    print(check)
+    if not check:
         Session.close()
-        return None
+        return jsonify([])
     messages = Session.query(Messages).filter_by(chat_id=id).all()
     users = [[i.id, i.username] for i in Session.query(User).all()]
     for i in range(len(messages)):
