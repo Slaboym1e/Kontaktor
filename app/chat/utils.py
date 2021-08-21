@@ -13,3 +13,6 @@ def dir_serialize_list(list,attlist):
 
 def enumList(first, second):
     return [n for n, x in enumerate(first) if x[0] == second]
+
+def enumList(first, second):
+    return [n for n, x in enumerate(first) if x[0] == second]

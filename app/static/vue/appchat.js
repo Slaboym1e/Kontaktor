@@ -1,4 +1,4 @@
-const api_get_chat = "/api/chat/getchat"
+const api_get_chat = "/api/chat/getchats"
 
 const appChat = {
     data() {
