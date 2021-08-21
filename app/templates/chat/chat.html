@@ -5,21 +5,15 @@
 {% block content %}
     <div id="appchat">
         <input v-model="uid" type="hidden" name="userId" id="uid" value="{!uid!}">
-        {{chats}}
-        {{currentChatId}}
-        {{chatMessages}}
-        {{uid}}
         <div class="container-fluid bg-light">
             <div class="row">
                 {# users list #}
                 <div class="col">
                     <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
-                        <a href="/"
+                        <a href="#"
                            class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-                            <svg class="bi me-2" width="30" height="24">
-                                <use xlink:href="#bootstrap"/>
-                            </svg>
-                            <span class="fs-5 fw-semibold">Список пользователей</span>
+                            <span class="fs-5 fw-semibold">Список чатов</span>
+                            <button type="button" class="btn float-end" data-bs-toggle="modal" data-bs-target="#staticBackdrop">+</button>
                         </a>
                         {#:class="{active : index==0}"#}
                         <div class="list-group list-group-flush border-bottom scrollarea">
@@ -51,6 +45,23 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Understood</button>
+      </div>
+    </div>
+  </div>
+</div>
     </div>
     <script src="{! url_for('static', filename='vue/appchat.js') !}"></script>
 {% endblock %}

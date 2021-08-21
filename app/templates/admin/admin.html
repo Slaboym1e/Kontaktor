@@ -2,27 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
+    <link href="../../static/fontawesome/css/all.css" rel="stylesheet">
+    <link href="../../static/css/admin.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <script src="../../static/js/bootstrap.js"></script>
+    <link href="{! url_for('static', filename='fontawesome/css/all.css') !}" rel="stylesheet">
     <title>Admin Panel</title>
 </head>
 <body>
-    <header class="navbar bg-dark navbar-dark sticky-top">
-      <nav class="container-fluid">
-        <a class="navbar-brand">Logo</a>
-        <button class="">
-          <span></span>
-        </button>
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link">
-              <i class="fas fa-eye"></i>
-            </a>
-          </li>
-          <li class="nav-item">
-            <i class="far fa-user-circle"></i>
-          </li>
-        </ul>
-      </nav>
+    <header class="navbar navbar-dark bg-dark sticky-top">
+            <a class="navbar-brand px-3" href="#">LOGO</a>
+            <ul class="icons navbar-nav d-flex flex-row">
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        <i class="fas fa-eye"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">
+                        Логин
+                        <i class="far fa-user-circle"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </header>
     <main class="container-fluid">
       <div class="row">
@@ -30,7 +34,50 @@
           <div class="position-sticky">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link">Резиденты площадки</a>
+                <a class="" data-bs-toggle="collapse" href="#residents" role="button" aria-expanded="false" aria-controls="collapseExample">Резиденты площадки</a>
+                <div class="collapse" id="residents">
+                    <div class="card card-body">
+                            <a class="nav-link" href="#">Общая информация</a>
+                            <a class="nav-link" href="#">Заявки на мероприятия</a>
+                            <a class="nav-link" href="#">Бухгалтерия</a>
+                            <a class="nav-link" href="#">Документы</a>
+                            <a class="nav-link" href="#">Статистика</a>
+                            <a class="nav-link" href="#">Управление персонами</a>
+                    </div>
+                </div>
+              </li>
+                <li class="nav-item">
+                <a class="" data-bs-toggle="collapse" href="#areas" role="button" aria-expanded="false" aria-controls="collapseExample">Площадка</a>
+                <div class="collapse" id="areas">
+                    <div class="card card-body">
+                        <div>
+                            <a class="nav-link" href="#">Общая информация</a>
+                            <a class="nav-link" href="#">Финансовая информация</a>
+                            <a class="nav-link" href="#">Собственные мероприятия</a>
+                            <a class="nav-link" href="#">Технические заявки</a>
+                            <a class="nav-link" href="#">Управление персоналом</a>
+                            <a class="nav-link" href="#">Управление помещениями</a>
+                            <a class="nav-link" href="#">Датчики</a>
+                            <a class="nav-link" href="#">Видеокамеры</a>
+                            <a class="nav-link" href="#">Службы безопасности</a>
+                        </div>
+                    </div>
+                </div>
+              </li>
+                                <li class="nav-item">
+                <a class="" data-bs-toggle="collapse" href="#portal" role="button" aria-expanded="false" aria-controls="collapseExample">Портал площадки</a>
+                <div class="collapse" id="portal">
+                    <div class="card card-body">
+                        <div>
+                            <a class="nav-link" href="#">Настройки</a>
+                            <a class="nav-link" href="#">Макеты</a>
+                            <a class="nav-link" href="#">Нагрузка</a>
+                            <a class="nav-link" href="#">Модули</a>
+                            <a class="nav-link" href="#">Статистика</a>
+                            <a class="nav-link" href="#">Утилиты</a>
+                        </div>
+                    </div>
+                </div>
               </li>
             </ul>
           </div>

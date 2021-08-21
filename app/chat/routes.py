@@ -1,6 +1,6 @@
 from flask_cors import CORS
 from app.chat import chat, chat_api
-from flask import render_template, jsonify
+from flask import render_template, jsonify, request
 from flask_login import current_user, login_required
 from app import Session
 from app.chat.models import Chats,ChatMembers,Messages
@@ -30,9 +30,9 @@ def getchats():
 @chat_api.route('/getmessages-<id>')
 @login_required
 def getmessages(id):
-    print(datetime.now())
+    #print(datetime.now())
     check = Session.query(ChatMembers).filter_by(chat_id=id, member_id=current_user.id).all()
-    print(check)
+   # print(check)
     if not check:
         Session.close()
         return jsonify([])
@@ -44,3 +44,28 @@ def getmessages(id):
     Session.close()
     return jsonify(dir_serialize_list(messages,['id','author_id','message','createtime']))
 
+@chat.route('/sendmessage',methods=['POST'])
+@chat_api.route('/sendmessage',methods=['POST'])
+@login_required
+def sendmessage():
+    req_data = request.get_json(force=True)
+    print(req_data.get('message'), req_data.get('chat_id'))
+    message = Messages(message=str(req_data.get('message')), chat_id=int(req_data.get('chat_id')),createtime=datetime.now(),author_id=current_user.id)
+    #print(message)
+    Session.add(message)
+    Session.commit()
+    Session.close()
+    return jsonify(['Success'])
+
+@chat.route('/getusers')
+@chat_api.route('/getusers')
+@login_required
+def getusers():
+    Users = Session.query(User).filter(User.id != current_user.id).all()
+    Session.close()
+    return jsonify(dir_serialize_list(Users, ['id', 'username']))
+
+@chat_api.route('/createchat', methods=['POST'])
+@login_required
+def creatchat():
+    return '42'

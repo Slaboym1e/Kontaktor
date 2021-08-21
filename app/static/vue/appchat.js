@@ -1,14 +1,15 @@
 const api_get_chat = "/api/chat/getchats"
 const api_get_chat_message = "/api/chat/getmessages-"
+const api_post_send_message = "/api/chat/sendmessage"
 
 const appChat = {
     data() {
         return {
             currentChatId: 0,
-            uid : null,
+            uid: null,
             chatMessage: '',
-            chats : [],
-            chatMessages : []
+            chats: [],
+            chatMessages: []
         }
     },
     // computed:
@@ -21,20 +22,37 @@ const appChat = {
     // },
     methods: {
         send(id) {
-            console.log("Send in chat:" + id + " message:" + this.chatMessage)
+            //console.log("Send in chat:" + id + " message:" + this.chatMessage)
+            let message = {chat_id: id, message: this.chatMessage}
+            self.axios.post(api_post_send_message,  JSON.stringify(message), {headers: {'Accept':'aplication/json','Content-Type': 'application/json'}})
+            .then(response => {
+                //console.log(response.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
             this.chatMessage = ''
+            self.axios.get(api_get_chat_message + id).then((response) => {
+                this.chatMessages = response.data
+
+            })
         },
-        choiseChat(index, id){
+        choiseChat(index, id) {
             console.log(index, id)
-            for (let i in this.chats)
-            {
-                    this.chats[i].active = false
+            for (let i in this.chats) {
+                this.chats[i].active = false
             }
             this.chats[index].active = true
-            self.axios.get(api_get_chat_message+id).then((response) => {
-            this.chatMessages = response.data
-
-        })
+            self.axios.get(api_get_chat_message + id).then((response) => {
+                this.chatMessages = response.data
+            })
+        },
+        intervalFetchData: function () {
+            setInterval(() => {
+                self.axios.get(api_get_chat_message + this.currentChatId).then((response) => {
+                    this.chatMessages = response.data
+                })
+                }, 550);
         }
         // delOperation(id) {
         //     this.changeOperation.splice(id, 1)
@@ -53,9 +71,8 @@ const appChat = {
         self.axios.get(api_get_chat).then((response) => {
             this.chats = response.data
 
-            for (let i in this.chats)
-            {
-                if(i>0)
+            for (let i in this.chats) {
+                if (i > 0)
                     this.chats[i].active = false
                 else
                     this.chats[i].active = true
@@ -70,7 +87,7 @@ const appChat = {
         // })
     },
     mounted() {
-        console.log(this.id)
+        this.intervalFetchData();
     }
 
 }
