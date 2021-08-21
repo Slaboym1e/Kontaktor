@@ -46,7 +46,7 @@ def getmessages(id):
 
 @chat.route('/sendmessage',methods=['POST'])
 @chat_api.route('/sendmessage',methods=['POST'])
-#@login_required
+@login_required
 def sendmessage():
     req_data = request.get_json(force=True)
     print(req_data.get('message'), req_data.get('chat_id'))
@@ -57,3 +57,15 @@ def sendmessage():
     Session.close()
     return jsonify(['Success'])
 
+@chat.route('/getusers')
+@chat_api.route('/getusers')
+@login_required
+def getusers():
+    Users = Session.query(User).filter(User.id != current_user.id).all()
+    Session.close()
+    return jsonify(dir_serialize_list(Users, ['id', 'username']))
+
+@chat_api.route('/createchat', methods=['POST'])
+@login_required
+def creatchat():
+    return '42'

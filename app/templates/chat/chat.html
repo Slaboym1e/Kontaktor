@@ -1,52 +1,81 @@
 {% extends "maintemp.html" %}
 {% block head %}
-    {! super() !}
+{! super() !}
 {% endblock %}
 {% block content %}
-    <div id="appchat">
-        <input v-model="uid" type="hidden" name="userId" id="uid" value="{!uid!}">
-        <div class="container-fluid bg-light">
-            <div class="row">
-                {# users list #}
-                <div class="col">
-                    <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
-                        <a href="/"
-                           class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-                            <svg class="bi me-2" width="30" height="24">
-                                <use xlink:href="#bootstrap"/>
-                            </svg>
-                            <span class="fs-5 fw-semibold">Список пользователей</span>
+<div id="appchat">
+    <input v-model="uid" type="hidden" name="userId" id="uid" value="{!uid!}">
+    <div class="container-fluid bg-light">
+        <div class="row">
+            {# users list #}
+            <div class="col">
+                <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
+                    <a href="#"
+                       class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+                        <span class="fs-5 fw-semibold">Список чатов</span>
+                        <button type="button" class="btn float-end" data-bs-toggle="modal"
+                                data-bs-target="#staticBackdrop">+
+                        </button>
+                    </a>
+                    {#:class="{active : index==0}"#}
+                    <div class="list-group list-group-flush border-bottom scrollarea">
+                        <a href="#" v-for="(chat, index) in chats"
+                           class="list-group-item list-group-item-action py-3 lh-tight" :class="{active : chat.active}"
+                           @click="choiseChat(index, chat.id)" aria-current="true">
+                            <div class="d-flex w-100 align-items-center justify-content-between">
+                                <strong class="mb-1">{{chat.title}}</strong>
+                                <small>Wed</small>
+                            </div>
+                            <div class="col-10 mb-1 small">Последнее сообщение из этого чата</div>
                         </a>
-                        {#:class="{active : index==0}"#}
-                        <div class="list-group list-group-flush border-bottom scrollarea">
-                            <a href="#" v-for="(chat, index) in chats" class="list-group-item list-group-item-action py-3 lh-tight" :class="{active : chat.active}" @click="choiseChat(index, chat.id)" aria-current="true" >
-        <div class="d-flex w-100 align-items-center justify-content-between">
-          <strong class="mb-1">{{chat.title}}</strong>
-          <small>Wed</small>
-        </div>
-        <div class="col-10 mb-1 small">Последнее сообщение из этого чата</div>
-      </a>
-                        </div>
                     </div>
                 </div>
-                {# message list #}
-                <div class="col">
-                    {# message show messages area #}
-                    <div class="row" v-for="cM in chatMessages">
-                        <p>{{cM.message}}</p>
-                    </div>
-                    {# message send area #}
-                    <div class="row border-1 rounded-2">
-                        <div class="input-group mb-3">
+            </div>
+            {# message list #}
+            <div class="col">
+                {# message show messages area #}
+                <div class="row" v-for="cM in chatMessages">
+                    <p>{{cM.message}}</p>
+                </div>
+                {# message send area #}
+                <div class="row border-1 rounded-2">
+                    <div class="input-group mb-3">
                             <textarea @keyup.enter="send(currentChatId)" v-model="chatMessage" cols="5" class="col-9"
                                       placeholder="Введите сообщение, чтобы начать чат..."
                                       value="chat_message"></textarea>
-                            <button @click="send(currentChatId)" class="col-2 btn btn-dark">Отправить</button>
-                        </div>
+                        <button @click="send(currentChatId)" class="col-2 btn btn-dark">Отправить</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <script src="{! url_for('static', filename='vue/appchat.js') !}"></script>
+    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+         aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Добавить чат</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group">
+                        <label v-for="user in users" class="list-group-item d-flex gap-3">
+                            <input v-model="checkUsers" class="form-check-input flex-shrink-0" type="checkbox" :value="user.id"
+                                   style="font-size: 1.375em;">
+                            <span class="pt-1 form-checked-content">
+      <strong>{{user.username}}</strong>
+    </span>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button @click="AddChat()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Создать
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{! url_for('static', filename='vue/appchat.js') !}"></script>
 {% endblock %}

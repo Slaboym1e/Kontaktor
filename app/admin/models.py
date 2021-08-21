@@ -13,6 +13,7 @@ class User(UserMixin, Base):
     group_id   = Column(String(12), unique=False, nullable=True, default='user')
 
 
+
     def __init__(self, username=None, group_id=None):
         self.username = username
         self.group_id = group_id
