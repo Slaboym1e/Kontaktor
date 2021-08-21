@@ -1,0 +1,5 @@
+{% block head %}
+    {{ super() }}
+{% endblock %}
+<div id="appchat"></div>
+<script src="{{ url_for('static', filename='vue/appchat.js') }}"></script>

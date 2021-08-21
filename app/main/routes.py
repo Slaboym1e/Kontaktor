@@ -5,7 +5,7 @@ main = Blueprint('main', __name__)
 @main.route('/')
 @main.route('/index')
 def index():
-        return "Hello, world!!!"
+        return render_template('index.html')
 
 
 @main.errorhandler(404)

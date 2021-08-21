@@ -1,6 +1,6 @@
-const url_getmachine_api = "/techproc/api/getmachines"
-const url_getoperators_api = "/techproc/api/getoperators"
-const url_getoperations_api = "/techproc/api/getoperations"
+// const url_getmachine_api = "/techproc/api/getmachines"
+// const url_getoperators_api = "/techproc/api/getoperators"
+// const url_getoperations_api = "/techproc/api/getoperations"
 
 
 const appTechFastTasks = {
