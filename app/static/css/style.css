@@ -1,0 +1,16 @@
+.red > a:link{
+    color:red;
+}
+.red > a:visited {
+  color: red;
+}
+
+/* mouse over link */
+.red > a:hover {
+  color: red;
+}
+
+/* selected link */
+.red > a:active {
+  color: red;
+}

@@ -1,0 +1,12 @@
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from app.config import config, configBD
+
+app = Flask(__name__)
+app.config.from_object(configBD)
+app.config.from_object(config)
+db = SQLAlchemy(app)
+
+from app.main.routes import main
+
+app.register_blueprint(main, url_prefix="/")
