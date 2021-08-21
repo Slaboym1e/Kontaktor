@@ -1,11 +1,11 @@
 from flask import Blueprint, render_template
 
-admin = Blueprint('main', __name__)
+admin = Blueprint('admin', __name__)
 
 
 @admin.route('/')
 def index():
-        return "Hello, world!!!"
+        return "Hi"
 
 
 @admin.errorhandler(404)
