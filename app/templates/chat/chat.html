@@ -4,12 +4,12 @@
 {% endblock %}
 {% block content %}
 <div id="appchat">
-    <input v-model="uid" type="hidden" name="userId" id="uid" value="{!uid!}">
+    <input  type="hidden" name="userId" ref="uid" value="{!uid|e!}">
     <div class="container-fluid bg-light">
         <div class="row">
             {# users list #}
-            <div class="col">
-                <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
+            <div class="col-4">
+                <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
                     <a href="#"
                        class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
                         <span class="fs-5 fw-semibold">Список чатов</span>
@@ -32,19 +32,17 @@
                 </div>
             </div>
             {# message list #}
-            <div class="col">
+            <div class="col-8">
                 {# message show messages area #}
                 <div class="row" v-for="cM in chatMessages">
                     <p>{{cM.message}}</p>
                 </div>
                 {# message send area #}
-                <div class="row border-1 rounded-2">
-                    <div class="input-group mb-3">
-                            <textarea @keyup.enter="send(currentChatId)" v-model="chatMessage" cols="5" class="col-9"
+                <div class="row input-group mb-3">
+                            <textarea @keyup.enter="send(currentChatId)" v-model="chatMessage" cols="5" class="col"
                                       placeholder="Введите сообщение, чтобы начать чат..."
                                       value="chat_message"></textarea>
-                        <button @click="send(currentChatId)" class="col-2 btn btn-dark">Отправить</button>
-                    </div>
+                        <button @click="send()" class="col btn btn-dark">Отправить</button>
                 </div>
             </div>
         </div>

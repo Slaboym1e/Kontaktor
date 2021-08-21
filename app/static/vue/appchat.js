@@ -9,7 +9,7 @@ const appChat = {
             users: [],
             checkUsers:[],
             currentChatId: 0,
-            uid: null,
+            uid: '',
             chatMessage: '',
             chats: [],
             chatMessages: []
@@ -24,9 +24,9 @@ const appChat = {
     //     }
     // },
     methods: {
-        send(id) {
+        send() {
             //console.log("Send in chat:" + id + " message:" + this.chatMessage)
-            let message = {chat_id: id, message: this.chatMessage}
+            let message = {chat_id: this.currentChatId, message: this.chatMessage}
             self.axios.post(api_post_send_message,  JSON.stringify(message), {headers: {'Accept':'aplication/json','Content-Type': 'application/json'}})
             .then(response => {
                 //console.log(response.data);
@@ -35,13 +35,13 @@ const appChat = {
                 console.log(error);
             });
             this.chatMessage = ''
-            self.axios.get(api_get_chat_message + id).then((response) => {
+            self.axios.get(api_get_chat_message + this.currentChatId).then((response) => {
                 this.chatMessages = response.data
 
             })
         },
         choiseChat(index, id) {
-            console.log(index, id)
+            this.currentChatId = id
             for (let i in this.chats) {
                 this.chats[i].active = false
             }
@@ -98,6 +98,7 @@ const appChat = {
         // }
     },
     created() {
+
         self.axios.get(api_get_chat).then((response) => {
             this.chats = response.data
 
@@ -115,10 +116,12 @@ const appChat = {
 
     },
     mounted() {
+        this.uid = this.$refs.uid.value
         this.intervalFetchData();
         self.axios.get(api_get_users).then((response) => {
             this.users = response.data
         })
+
     }
 
 }
