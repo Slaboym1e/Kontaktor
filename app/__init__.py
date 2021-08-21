@@ -1,5 +1,6 @@
 from flask import Flask
 #from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 from app.config import config, configBD
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -12,6 +13,7 @@ app.config.from_object(config)
 engine = create_engine(configBD.SQLALCHEMY_DATABASE_URI, convert_unicode=True)
 Session =scoped_session(sessionmaker(autocommit=False, autoflush=False, bind=engine))
 Base = declarative_base()
+login = LoginManager(app)
 
 from app.main.routes import main
 from app.admin.routes import admin
