@@ -3,7 +3,13 @@
 <head>
     {% block head %}
 
-    <title>{% block title %}{% endblock %} - My Webpage</title>
+    <title>Контактор - креативный кластер города Ульяноввск - {% block title %}{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="{% block description%}{% endblock %}" />
+    <meta name="keywords" content="{% block keywords%}{% endblock %}" />
+    <meta name="robots" content="index, follow" />
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.1.5/vue.global.prod.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/4.0.0/vuex.global.prod.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js"></script>
@@ -14,8 +20,9 @@
     <div id="content">{% block content %}{% endblock %}</div>
     <div id="footer">
         {% block footer %}
-        &copy; Copyright 2008 by <a href="http://domain.invalid/">you</a>.
+        &copy; Copyright 2021 by
         {% endblock %}
     </div>
+    <script src="{{ url_for('static', filename='js/bootstrap.bundle.min.js') }}"></script>
 </body>
 </html>

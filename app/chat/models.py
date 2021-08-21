@@ -26,7 +26,7 @@ class Messages(Base):
     message = Column(Text)
 
     def __init__(self, message, chat_id):
-        self.author_id = current_user.id
+        #self.author_id = current_user.id
         self.message = message
         self.createtime = datetime.now()
         self.chat_id = chat_id
