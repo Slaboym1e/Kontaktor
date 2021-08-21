@@ -44,7 +44,8 @@ def getmessages(id):
     Session.close()
     return jsonify(dir_serialize_list(messages,['id','author_id','message','createtime']))
 
-@chat_api('/sendmessage',methods=['POST'])
+
+@chat_api.route('/sendmessage',methods=['POST'])
 @login_required
 def sendmessage():
     req_data = request.get_json()
