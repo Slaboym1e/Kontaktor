@@ -4,76 +4,190 @@
 {% endblock %}
 {% block content %}
 <div id="appchat">
-    <input  type="hidden" name="userId" ref="uid" value="{!uid|e!}">
+    <input type="hidden" name="userId" ref="uid" value="{!uid|e!}">
     <div class="container-fluid bg-light">
         <div class="row">
-            {# users list #}
-            <div class="col-4">
-                <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
+            {# users
+            list\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+            #}
+            <div class="col">
+                <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
                     <a href="#"
                        class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
-                        <span class="fs-5 fw-semibold">Список чатов</span>
+                        <span class="fs-5 fw-semibold ">Список чатов</span>
                         <button type="button" class="btn float-end" data-bs-toggle="modal"
                                 data-bs-target="#staticBackdrop">+
                         </button>
                     </a>
                     {#:class="{active : index==0}"#}
-                    <div class="list-group list-group-flush border-bottom scrollarea">
+                    <div class="list-group list-group-flush border-bottom scrollarea" style="overflow-y: scroll;">
                         <a href="#" v-for="(chat, index) in chats"
                            class="list-group-item list-group-item-action py-3 lh-tight" :class="{active : chat.active}"
                            @click="choiseChat(index, chat.id)" aria-current="true">
                             <div class="d-flex w-100 align-items-center justify-content-between">
                                 <strong class="mb-1">{{chat.title}}</strong>
-                                <small>Wed</small>
+                                <!--                                <small>{{Messages.createtime}}</small> сделать время сообщения и состояние онлай/не онлайн-->
+                                <small>Время</small>
                             </div>
-                            <div class="col-10 mb-1 small">Последнее сообщение из этого чата</div>
+                            <div class="col-10 mb-1 small">Последнее сообщение из этого чата
+                            </div>
                         </a>
                     </div>
                 </div>
             </div>
-            {# message list #}
+            {# message
+            list\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+            #}
             <div class="col-8">
                 {# message show messages area #}
-                <div class="row" v-for="cM in chatMessages">
-                    <p>{{cM.message}}</p>
-                </div>
-                {# message send area #}
-                <div class="row input-group mb-3">
-                            <textarea @keyup.enter="send(currentChatId)" v-model="chatMessage" cols="5" class="col"
-                                      placeholder="Введите сообщение, чтобы начать чат..."
-                                      value="chat_message"></textarea>
-                        <button @click="send()" class="col btn btn-dark">Отправить</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-         aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">Добавить чат</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="list-group">
-                        <label v-for="user in users" class="list-group-item d-flex gap-3">
-                            <input v-model="checkUsers" class="form-check-input flex-shrink-0" type="checkbox" :value="user.id"
-                                   style="font-size: 1.375em;">
-                            <span class="pt-1 form-checked-content">
-      <strong>{{user.username}}</strong>
-    </span>
-                        </label>
+                <div class="row h-90" style=" overflow-y: scroll; min-height: 90vh; max-height: 90vh">
+                    <div class="row  d-flex justify-content-center mt-5">
+                        <p>{{chat_id}}</p>
+                        <hr>
+                    </div>
+                    <div class="row" v-for="cM in chatMessages">
+                        <p>{{cM.author_id}}: {{cM.message}}</p>
+                        <hr>
                     </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                    <button @click="AddChat()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Создать
-                    </button>
+                {# message send area #}
+                <div class="row h-10 d-flex align-items-end">
+                    <div class="col">
+                        <div class="input-group mb-3">
+                            <textarea @keyup.enter="send(currentChatId)" v-model="chatMessage" cols="5" class="col-9"
+                                      placeholder="Введите сообщение, чтобы начать чат..."
+                                      value="chat_message"></textarea>
+                            <button @click="send()" class="col btn btn-dark">Отправить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+                 aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="staticBackdropLabel">Добавить чат</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="list-group">
+                                <label v-for="user in users" class="list-group-item d-flex gap-3">
+                                    <input v-model="checkUsers" class="form-check-input flex-shrink-0" type="checkbox"
+                                           :value="user.id"
+                                           style="font-size: 1.375em;">
+                                    <span class="pt-1 form-checked-content">
+      <strong>{{user.username}}</strong>
+    </span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            <button @click="AddChat()" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                                Создать
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
 <script src="{! url_for('static', filename='vue/appchat.js') !}"></script>
 {% endblock %}
+<!--<div id="appchat">-->
+<!--    <input v-model="uid" type="hidden" name="userId" id="uid" value="{!uid!}">-->
+<!--    <div class="container-fluid bg-light" style="height:100vh;">-->
+<!--        <div class="row" style="height:100vh;">-->
+<!--            {# users list #}-->
+<!--            <div class="col-xs-3 col-sm-3  col-md-3 col-lg-3 col-xl-5 col-xxl-5  bg-danger "-->
+<!--                 style="min-width: 250px; max-width: 400px; overflow-y: scroll;">-->
+<!--                <div class="d-flex flex-column justify-content-start  bg-white">-->
+<!--                    <a href="#"-->
+<!--                       class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">-->
+<!--                        <span class="fs-5 fw-semibold ">Список чатов</span>-->
+<!--                        <button type="button" class="btn float-end" data-bs-toggle="modal"-->
+<!--                                data-bs-target="#staticBackdrop">+-->
+<!--                        </button>-->
+<!--                    </a>-->
+<!--                    {#:class="{active : index==0}"#}-->
+<!--                    <div class="list-group list-group-flush border-bottom scrollarea">-->
+<!--                        <a href="#" v-for="(chat, index) in chats"-->
+<!--                           class="list-group-item list-group-item-action p-3 lh-tight" :class="{active : chat.active}"-->
+<!--                           @click="choiseChat(index, chat.id)" aria-current="true">-->
+<!--                            <div class="d-flex w-100 align-items-center justify-content-between">-->
+<!--                                <strong class="mb-1">{{chat.title}}</strong>-->
+<!--                                <small>Время</small>-->
+<!--                            </div>-->
+<!--                            <div class="col-10 mb-1 small">Последнее сообщение из этого чата</div>-->
+<!--                        </a>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--            {# message list #}-->
+<!--            <div class="col " style="position: relative;">-->
+<!--                {# message show messages area #}-->
+<!--                <div class="row h-90  "-->
+<!--                     style="float: right;overflow: hidden; position: relative; overflow-y: scroll; min-height: 90vh; max-height: 90vh">-->
+<!--                    <div class="row" v-for="cM in chatMessages">-->
+<!--                        <p>{{cM.author_id}}: {{cM.message}}</p>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                {# message send area #}-->
+<!--                <div class="row h-10 d-flex align-items-end">-->
+<!--                    <div class="col">-->
+<!--                        <div class="input-group mb-3">-->
+<!--                            <textarea @keyup.enter="send(currentChatId)" v-model="chatMessage" cols="5" class="col-9"-->
+<!--                                      placeholder="Введите сообщение, чтобы начать чат..."-->
+<!--                                      value="chat_message"></textarea>-->
+<!--                            <button @click="send(currentChatId)" class="col-2 btn btn-dark">Отправить</button>-->
+<!--                        </div>-->
+
+<!--                    </div>-->
+
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"-->
+<!--         aria-labelledby="staticBackdropLabel" aria-hidden="true">-->
+<!--        <div class="modal-dialog">-->
+<!--            <div class="modal-content">-->
+<!--                <div class="modal-header">-->
+<!--                    <h5 class="modal-title" id="staticBackdropLabel">Добавить чат</h5>-->
+<!--                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+<!--                </div>-->
+<!--                <div class="modal-body">-->
+<!--                    <div class="list-group">-->
+<!--                        <label v-for="user in users" class="list-group-item d-flex gap-3">-->
+<!--                            <input v-model="checkUsers" class="form-check-input flex-shrink-0" type="checkbox"-->
+<!--                                   :value="user.id"-->
+<!--                                   style="font-size: 1.375em;">-->
+<!--                            <span class="pt-1 form-checked-content">-->
+<!--      <strong>{{user.username}}</strong>-->
+<!--    </span>-->
+<!--                        </label>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="modal-footer">-->
+<!--                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>-->
+<!--                    <button @click="AddChat()" type="button" class="btn btn-primary" data-bs-dismiss="modal">Создать-->
+<!--                    </button>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--    <div class="container-fluid bg-light">-->
+<!--        <div class="row">-->
+<!--            <div class="col-md-4 bg-info">-->
+
+<!--            </div>-->
+
+<!--        </div>-->
+
+<!--    </div>-->
+
+<!--</div>-->
