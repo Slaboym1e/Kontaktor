@@ -49,7 +49,7 @@ def getmessages(id):
 #@login_required
 def sendmessage():
     req_data = request.get_json(force=True)
-    print(req_data)
+    print(req_data.get('message'), req_data.get('chat_id'))
     #message = Messages(req_data.get('message'), req_data.get('chat_id'))
     #Session.add(message)
     #Session.commit()
