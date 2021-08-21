@@ -67,7 +67,7 @@ const appChat = {
             .then(response => {
                 if(response.data.id!="")
                 {
-                    this.checkUsers = null
+                    this.checkUsers = []
                     self.axios.get(api_get_chat).then((response) => {
                     this.chats = response.data
 
