@@ -2,7 +2,7 @@ from app import login
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from sqlalchemy import Column, Integer, String, DateTime, Date, SmallInteger
-from app import Base, engine
+from app import Base, engine,Session
 
 
 
@@ -22,9 +22,14 @@ def __repr__(self):
     return '<User %r>' % self.username
 
 
+# @login.user_loader
+# def load_user(user_id):
+#     return User.get(user_id)
+
 @login.user_loader
-def load_user(user_id):
-    return User.get(user_id)
+def load_user(id):
+    #return User.id(id)
+    return Session.query(User).filter(User.id == id).first()
 
 
 
