@@ -7,7 +7,7 @@ from datetime import datetime
 class Chats(Base):
     __tablename__ = 'chats'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    title = Column(String(255), unique=True, nullable=False)
+    title = Column(String(255), unique=False, nullable=False)
 
 
 class ChatMembers(Base):

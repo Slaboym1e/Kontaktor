@@ -7,11 +7,13 @@ from app.chat.models import Chats,ChatMembers,Messages
 from app.chat.utils import mserialize_list, dir_serialize_list, enumList
 from app.admin.models import User
 from datetime import datetime
+from sqlalchemy import or_
 CORS(chat_api)
 
 @chat.route('/')
 @chat.route('/index')
 def index():
+        Session.close()
         return render_template('chat/chat.html', uid=current_user.id)
 
 @chat.route('/getchats')
@@ -21,7 +23,6 @@ def getchats():
     userchats = [x.chat_id for x in Session.query(ChatMembers.chat_id).filter_by(member_id=current_user.id).distinct()]
     print(userchats)
     chats = Session.query(Chats).filter(Chats.id.in_(userchats)).all()
-
     Session.close()
     return jsonify(mserialize_list(chats))
 
@@ -65,7 +66,26 @@ def getusers():
     Session.close()
     return jsonify(dir_serialize_list(Users, ['id', 'username']))
 
-@chat_api.route('/createchat', methods=['POST'])
+
+@chat_api.route('/createchat', methods=['GET','POST'])
 @login_required
 def creatchat():
-    return '42'
+    request_data = request.get_json(force=True)
+    text = request_data.get('users')
+    print(text)
+    usernames = Session.query(User).filter(User.id==text[0]).all()
+    title = str(current_user.username + ", "+ usernames[0].username+'...')
+    cchat = Chats(title = title)
+    Session.add(cchat)
+    Session.commit()
+    return_id = cchat.id
+    members = []
+    members.append(ChatMembers(chat_id=cchat.id,member_id=current_user.id))
+    for i in range(len(text)):
+        members.append(ChatMembers(chat_id=cchat.id,member_id=text[i]))
+    Session.add_all(members)
+    Session.commit()
+    Session.close()
+    #parse = text.strip('[]').replace(' ', '').split(',')
+    #print(parse)
+    return jsonify({'id': return_id}) #вернуть id чата

@@ -1,25 +1,52 @@
 from app.admin import admin
 from flask import render_template, request, flash, redirect, url_for, session
 from app import Session
-from app.admin.models import User
+from app.admin.models import User, Area
 from flask_login import current_user, login_user, logout_user, login_required
 from app.admin.WTForms import LoginForm
 import app.main
+from array import *
 
 @admin.route('/')
 def index():
         if current_user.is_authenticated:
-                return redirect(url_for('main.index'))
-        return ""
+            return render_template('admin/admin.html')
+        return redirect(url_for('main.index'))
+
+@admin.route('/area')
+def area():
+    areas = Session.query(Area).all()
+    for area in areas:
+        area.square = round(float(area.height) * float(area.width), 2)
+    Session.close()
+    return render_template('admin/docs.html', areas=areas)
+
+@admin.route('/more/<int:id>')
+def more(id):
+    area = Session.query(Area).filter_by(id=id).first()
+    square = round(float(area.height) * float(area.width), 2)
+    user = Session.query(User).filter_by(id=area.user_id).first()
+    return render_template('admin/more.html', square=square, area=area, user=user)
+
+
+# @admin.route('/areaa')
+# def areaa():
+#     area = Area(title='Помидоры', width='140', height='200', user_id='1')
+#     Session.add(area)
+#     Session.commit()
+#     Session.close()
+#     return "11"
 
 
 @admin.route('/login')
 def login():
-        form=LoginForm()
-        user = Session.query(User).all()
-        select = request.form.get('comp_select')
-        Session.close()
-        return render_template("admin/tableuser.html", user=user, select=select, form=form)
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+    form=LoginForm()
+    user = Session.query(User).all()
+    select = request.form.get('comp_select')
+    Session.close()
+    return render_template("admin/tableuser.html", user=user, select=select, form=form)
 
 @admin.route("/test" , methods=['GET', 'POST'])
 def test():
@@ -43,7 +70,7 @@ def logout():
 
 @admin.route('/registre', methods=['GET', 'POST'])
 def reg():
-    user = User(username = "resident", group_id="resident")
+    user = User(username = "buhgalet", group_id="user")
     Session.add(user)
     Session.commit()
     Session.close()
