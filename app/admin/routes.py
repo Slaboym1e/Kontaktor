@@ -1,11 +1,14 @@
-from flask import Blueprint, render_template
-
-admin = Blueprint('admin', __name__)
-
+from app.admin import admin
+from flask import render_template, request, flash, redirect, url_for, session
 
 @admin.route('/')
 def index():
-        return "Hi"
+        return ""
+
+
+@admin.route('/login')
+def login():
+        return render_template("tableuser.html")
 
 
 @admin.errorhandler(404)

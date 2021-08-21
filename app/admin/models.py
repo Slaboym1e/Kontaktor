@@ -20,3 +20,8 @@ def __init__(self, username=None, group_id=None):
 
 def __repr__(self):
     return '<User %r>' % self.username
+
+
+@login.user_loader
+def load_user(user_id):
+    return User.get(user_id)
