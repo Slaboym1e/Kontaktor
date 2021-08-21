@@ -1,18 +1,41 @@
 const api_get_chat = "/api/chat/getchats"
+const api_get_chat_message = "/api/chat/getmessages-"
 
 const appChat = {
     data() {
         return {
             currentChatId: 0,
+            uid : null,
             chatMessage: '',
-            chats : []
+            chats : [],
+            chatMessages : []
         }
     },
+    // computed:
+    // {
+    //     activeChat(index){
+    //         if (index==0){
+    //             return {active: true}
+    //         }
+    //     }
+    // },
     methods: {
         send(id) {
             console.log("Send in chat:" + id + " message:" + this.chatMessage)
             this.chatMessage = ''
         },
+        choiseChat(index, id){
+            console.log(index, id)
+            for (let i in this.chats)
+            {
+                    this.chats[i].active = false
+            }
+            this.chats[index].active = true
+            self.axios.get(api_get_chat_message+id).then((response) => {
+            this.chatMessages = response.data
+
+        })
+        }
         // delOperation(id) {
         //     this.changeOperation.splice(id, 1)
         // },
@@ -29,6 +52,15 @@ const appChat = {
     created() {
         self.axios.get(api_get_chat).then((response) => {
             this.chats = response.data
+
+            for (let i in this.chats)
+            {
+                if(i>0)
+                    this.chats[i].active = false
+                else
+                    this.chats[i].active = true
+            }
+            this.currentChatId = response.data[0].id
         })
         // self.axios.get(url_getoperators_api).then((response) => {
         //     this.operators = response.data
@@ -38,7 +70,7 @@ const appChat = {
         // })
     },
     mounted() {
-
+        console.log(this.id)
     }
 
 }
