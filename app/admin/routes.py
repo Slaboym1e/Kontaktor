@@ -15,11 +15,13 @@ def index():
 
 @admin.route('/login')
 def login():
-        form=LoginForm()
-        user = Session.query(User).all()
-        select = request.form.get('comp_select')
-        Session.close()
-        return render_template("admin/tableuser.html", user=user, select=select, form=form)
+    if current_user.is_authenticated:
+        return redirect(url_for('main.index'))
+    form=LoginForm()
+    user = Session.query(User).all()
+    select = request.form.get('comp_select')
+    Session.close()
+    return render_template("admin/tableuser.html", user=user, select=select, form=form)
 
 @admin.route("/test" , methods=['GET', 'POST'])
 def test():
