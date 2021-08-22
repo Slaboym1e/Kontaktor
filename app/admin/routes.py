@@ -23,7 +23,7 @@ def area():
     return render_template('admin/docs.html', areas=areas)
 
 @admin.route('/residents')
-def residents():
+def residentsview():
     return render_template('admin/residents.html')
 
 
