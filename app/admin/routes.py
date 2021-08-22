@@ -5,6 +5,7 @@ from app.admin.models import User, Area, residents, staff
 from flask_login import current_user, login_user, logout_user, login_required
 from app.admin.WTForms import LoginForm, CreateResidentForm
 from app.admin.utils import createListUsers
+from app.chat.utils import enumList
 import app.main
 from array import *
 
@@ -23,7 +24,13 @@ def area():
     return render_template('admin/docs.html', areas=areas)
 
 @admin.route('/residents')
-def residents():
+def residentsview():
+    resident = Session.query(residents).all()
+    users = [[i.id, i.username] for i in Session.query(User).filter_by(group_id=2).all()]
+    for i in range(len(resident)):
+        dirs = enumList(users, resident[i].director_id)
+        resident[i].director_id = users[dirs[0]][1]
+        print(resident[i].director_id)
     return render_template('admin/residents.html')
 
 
