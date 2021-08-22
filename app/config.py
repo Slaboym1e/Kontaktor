@@ -9,10 +9,10 @@ class configBD_local(object):
 class configBD(object):
     SQLALCHEMY_DIALECT  = 'mysql'
     SQLALCHEMY_DRIVER   = 'pymysql'
-    SQLALCHEMY_USER     = 'a0529774_kontaktor'
-    SQLALCHEMY_PASSWORD = 'Tpk3b2Hf'
-    SQLALCHEMY_HOST     = '141.8.192.26'
-    SQLALCHEMY_DBNAME   = 'a0529774_kontaktor'
+    SQLALCHEMY_USER     = ''
+    SQLALCHEMY_PASSWORD = ''
+    SQLALCHEMY_HOST     = ''
+    SQLALCHEMY_DBNAME   = ''
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DIALECT+'+'+SQLALCHEMY_DRIVER+'://'+\
                               SQLALCHEMY_USER+':'+SQLALCHEMY_PASSWORD+'@'+\
