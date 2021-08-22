@@ -43,6 +43,8 @@ def rescreate():
             res = residents(resname=form.resname.data, director_id=form.dirid.data)
             Session.add(res)
             Session.commit()
+            Session.add(staff(resident_id=res.id, user_id=res.director_id))
+            Session.commit()
             Session.close()
             redirect(url_for('admin.rescreate'))
     Session.close()
