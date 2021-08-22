@@ -12,19 +12,25 @@ from array import *
 @admin.route('/')
 def index():
         if current_user.is_authenticated:
+            Session.close()
             return render_template('admin/index.html')
+        Session.close()
         return redirect(url_for('main.index'))
 
 @admin.route('/videocampage')
 def videocampage():
     if current_user.is_authenticated:
+        Session.close()
         return render_template('admin/videocam.html')
+    Session.close()
     return redirect(url_for('main.index'))
 
 @admin.route('/buhgalter')
 def buhgalter():
     if current_user.is_authenticated:
+        Session.close()
         return render_template('admin/buhgalter.html')
+    Session.close()
     return redirect(url_for('main.index'))
 
 
@@ -44,7 +50,8 @@ def residentsview():
     for i in range(len(resident)):
         dirs = enumList(users, resident[i].director_id)
         resident[i].director_id = users[dirs[0]][1]
-        print(resident[i].director_id)
+    Session.close()
+        #print(resident[i].director_id)
     return render_template('admin/residents.html', residents=resident)
 
 @admin.route('/residentcreate', methods=['GET', 'POST'])
@@ -73,7 +80,7 @@ def areacreate():
         Session.add(Area(title=form.arname.data,height=form.heigth.data,width=form.width.data, user_id=0))
         Session.commit()
         Session.close()
-        redirect(url_for('admin.area'))
+        return redirect(url_for('admin.area'))
     Session.close()
     return render_template('admin/areacreate.html', form=form)
 # @admin.route('/areaa')
