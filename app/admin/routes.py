@@ -33,16 +33,6 @@ def residentsview():
         print(resident[i].director_id)
     return render_template('admin/residents.html', residents=resident)
 
-
-@admin.route('/more/<int:id>')
-def more(id):
-    area = Session.query(Area).filter_by(id=id).first()
-    square = round(float(area.height) * float(area.width), 2)
-    user = Session.query(User).filter_by(id=area.user_id).first()
-    Session.close()
-    return render_template('admin/more.html', square=square, area=area, user=user)
-
-
 @admin.route('/residentcreate', methods=['GET', 'POST'])
 def rescreate():
     form = CreateResidentForm()
@@ -66,7 +56,7 @@ def areacreate():
         Session.add(Area(title=form.arname.data,height=form.heigth.data,width=form.width.data, user_id=0))
         Session.commit()
         Session.close()
-        redirect(url_for('admin.areacreate'))
+        redirect(url_for('admin.area'))
     Session.close()
     return render_template('admin/areacreate.html', form=form)
 # @admin.route('/areaa')
