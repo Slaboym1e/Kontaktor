@@ -63,7 +63,7 @@ def rescreate():
 def areacreate():
     form = CreateAreatForm()
     if form.validate_on_submit():
-        Session.add(Area(title="Помещение",height=form.heigth.data,width=form.width.data, user_id=0))
+        Session.add(Area(title=form.arname.data,height=form.heigth.data,width=form.width.data, user_id=0))
         Session.commit()
         Session.close()
         redirect(url_for('admin.areacreate'))

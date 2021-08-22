@@ -11,7 +11,7 @@ class CreateResidentForm(FlaskForm):
     subbutton = SubmitField('Создать')
 
 class CreateAreatForm(FlaskForm):
-    arname = StringField('Название Резидента')
+    arname = StringField('Название Помещения')
     heigth = FloatField('Длина помешения')
     width = FloatField('Ширина помещения')
     subbutton = SubmitField('Добавить помещение')

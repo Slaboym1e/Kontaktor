@@ -1,0 +1,29 @@
+{% extends "admin/baseadmin.html" %}
+{% block title %}Admin Panel{% endblock %}
+{% block description %}Admin Panel{% endblock %}
+{% block keywords %}Admin Panel{% endblock %}
+{% block head %}
+    {! super() !}
+{% endblock %}
+{% block headeradmin %}{! super() !}{% endblock %}
+{% block content %}
+          <div class=" col-md-9 ms-sm-auto col-lg-10 px-md-4 bd-example p-5 bg-light border rounded-3 mb-3">
+              <form action="" method="POST">
+                   {! form.hidden_tag() !}
+                  <div class="mb-3">
+                      {!form.arname.label(for="arnameid")!}
+                   {!form.arname(class_="form-control",id="arnameid")!}
+                  </div>
+                  <div class="mb-3">
+                  {!form.heigth.label(for="heigthid") !}
+                  {!form.heigth(class_="form-control", id="heigthid") !}
+                  </div>
+                  <div class="mb-3">
+                  {!form.width.label(for="widthid") !}
+                  {!form.width(class_="form-control", id="widthid") !}
+                  </div>
+                  {!form.subbutton(class_="btn btn-primary")!}
+              </form>
+          </div>
+      </div>
+{% endblock %}
