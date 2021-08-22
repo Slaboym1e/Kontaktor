@@ -1,9 +1,10 @@
 from app.admin import admin
 from flask import render_template, request, flash, redirect, url_for, session
 from app import Session
-from app.admin.models import User, Area
+from app.admin.models import User, Area, residents, staff
 from flask_login import current_user, login_user, logout_user, login_required
-from app.admin.WTForms import LoginForm
+from app.admin.WTForms import LoginForm, CreateResidentForm
+from app.admin.utils import createListUsers
 import app.main
 from array import *
 
@@ -26,7 +27,23 @@ def more(id):
     area = Session.query(Area).filter_by(id=id).first()
     square = round(float(area.height) * float(area.width), 2)
     user = Session.query(User).filter_by(id=area.user_id).first()
+    Session.close()
     return render_template('admin/more.html', square=square, area=area, user=user)
+
+
+@admin.route('/residentcreate', methods=['GET', 'POST'])
+def rescreate():
+    form = CreateResidentForm()
+    form.dirid.choices = createListUsers(2)
+    if form.validate_on_submit():
+        if form.dirid.data !="":
+            res = residents(resname=form.resname.data, director_id=form.dirid.data)
+            Session.add(res)
+            Session.commit()
+            Session.close()
+            redirect(url_for('admin.rescreate'))
+    Session.close()
+    return render_template('admin/rescreate.html', form=form)
 
 
 # @admin.route('/areaa')
