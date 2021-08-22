@@ -31,7 +31,7 @@ def residentsview():
         dirs = enumList(users, resident[i].director_id)
         resident[i].director_id = users[dirs[0]][1]
         print(resident[i].director_id)
-    return render_template('admin/residents.html')
+    return render_template('admin/residents.html', residents=resident)
 
 
 @admin.route('/more/<int:id>')
@@ -55,7 +55,7 @@ def rescreate():
             Session.add(staff(resident_id=res.id, user_id=res.director_id))
             Session.commit()
             Session.close()
-            redirect(url_for('admin.rescreate'))
+            redirect(url_for('admin.residentsview'))
     Session.close()
     return render_template('admin/rescreate.html', form=form)
 

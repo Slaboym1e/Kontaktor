@@ -7,7 +7,9 @@
 {% endblock %}
 {% block headeradmin %}{! super() !}{% endblock %}
 {% block content %}
+
     <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4" >
+        <a class="mt-5 float-end" href="{!url_for('admin.rescreate')!}"><button type="button " class="btn btn-dark ">Добавить резидента</button></a>
         <table class="table">
             <thead>
             <tr>
@@ -21,7 +23,7 @@
             {%if residents != [] %}
             {%for r in residents %}
             <tr>
-                <th> scope="row">{!r.id!}</th>
+                <th>{!r.id!}</th>
                 <td>{!r.resname!} </td>
                 <td>{!r.director_id!}</td>
                 <td><a href="#">Edit</a></td>
