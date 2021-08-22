@@ -6,7 +6,7 @@
 <div id="appchat" class="mt-120">
     <input type="hidden"  ref="uid" value="{!uid|e!}">
     <div class="container-fluid bg-light">
-        <div class="row">
+        <div class="row" >
             {# users list #}
             <div class="col-4">
                 <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white">
@@ -29,25 +29,28 @@
                             </div>
                             <div class="col-10 mb-1 small">Последнее сообщение из этого чата
                             </div>
-                            <div class="col-10 mb-1 small">Последнее сообщение из этого чата</div>
+
                         </a>
                     </div>
                 </div>
             </div>
             {# message list #}
-            <div class="col-8">
+            <div class="col-8 " style="height: 95vh">
                 {# message show messages area #}
-                <div class="row h-90" style=" overflow-y: scroll; min-height: 90vh; max-height: 90vh">
-                    <div class="row  d-flex justify-content-center mt-5">
+                <div class="row  d-flex justify-content-center mt-5 ">
                         <p>{{chat_id}}</p>
-                        <hr>
                     </div>
+
+                    <div class=" " style="overflow-y:scroll; min-height: 70vh; max-height: 70vh">
                     {#:class="[cM.author_id!=uid ? 'text-end alert-light' : 'alert-success']"#}
-                    <div  class="row " v-for="cM in chatMessages" :class="[cM.author_id!=uid ? 'alert-light' : 'alert-success']">
-                        <p :class="[cM.author_id!=uid ? 'text-end' : '']">{{cM.author_id}}: {{cM.message}}</p>
+                    <div  class="row d-flex align-content-end"v-for="cM in chatMessages" :class="[cM.author_id!=uid ? 'alert-light' : 'alert-success']" style=" height: min-content;">
+                        <p class="" :class="[cM.author_id!=uid ? 'text-end' : '']" style="height: min-content">{{cM.author_id}}: {{cM.message}}</p>
                         <hr>
                     </div>
+
+
                 </div>
+
                 {# message send area #}
                 <div class="row h-10 d-flex align-items-end">
                     <div class="col">
