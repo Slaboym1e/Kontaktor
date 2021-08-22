@@ -16,7 +16,7 @@
 <body>
 {% block headeradmin %}
     <header class="navbar navbar-dark bg-dark sticky-top p-0">
-            <a class="navbar-brand py-1 px-3" href="#">LOGO</a>
+            <a class="navbar-brand py-1 px-3" href="{!url_for('admin.index')!}">LOGO</a>
             <ul class="navbar-nav d-flex flex-row pe-3">
                 <li class="nav-item px-2">
                     <a class="nav-link" href="">
@@ -68,7 +68,7 @@
                             <a class="nav-link" href="{!url_for('admin.residentsview')!}" style="text-decoration: none; color: #666; font-weight: normal">Управление персонами</a>
                             <a class="nav-link" href="#" style="text-decoration: none;" style="text-decoration: none; color: #666; font-weight: normal">Общая информация</a>
                             <a class="nav-link" href="#" style="text-decoration: none;" style="text-decoration: none; color: #666; font-weight: normal">Заявки на мероприятия</a>
-                            <a class="nav-link" href="#" style="text-decoration: none;" style="text-decoration: none; color: #666; font-weight: normal">Бухгалтерия</a>
+                            <a class="nav-link" href="{!url_for('admin.buhgalter')!}" style="text-decoration: none;" style="text-decoration: none; color: #666; font-weight: normal">Бухгалтерия</a>
                             <a class="nav-link" href="#" style="text-decoration: none;" style="text-decoration: none; color: #666; font-weight: normal">Документы</a>
                             <a class="nav-link" href="#" style="text-decoration: none;" style="text-decoration: none; color: #666; font-weight: normal">Статистика</a>
 
@@ -87,7 +87,7 @@
                             <a class="nav-link" href="#" style="text-decoration: none; color: #666; font-weight: normal">Управление персоналом</a>
                             <a class="nav-link" href="{!url_for('admin.area')!}" style="text-decoration: none; color: #666; font-weight: normal">Управление помещениями</a>
                             <a class="nav-link" href="#" style="text-decoration: none; color: #666; font-weight: normal">Датчики</a>
-                            <a class="nav-link" href="#" style="text-decoration: none; color: #666; font-weight: normal">Видеокамеры</a>
+                            <a class="nav-link" href="{!url_for('admin.videocampage')!}" style="text-decoration: none; color: #666; font-weight: normal">Видеокамеры</a>
                             <a class="nav-link" href="#" style="text-decoration: none; color: #666; font-weight: normal">Службы безопасности</a>
                         </div>
                     </div>

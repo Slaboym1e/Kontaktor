@@ -10,6 +10,9 @@ def index():
         return render_template('index.html')
 
 
+
+
+
 @main.errorhandler(404)
 def page404(e):
     return render_template('404.html'), 404

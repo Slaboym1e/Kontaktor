@@ -15,6 +15,20 @@ def index():
             return render_template('admin/index.html')
         return redirect(url_for('main.index'))
 
+@admin.route('/videocampage')
+def videocampage():
+    if current_user.is_authenticated:
+        return render_template('admin/videocam.html')
+    return redirect(url_for('main.index'))
+
+@admin.route('/buhgalter')
+def buhgalter():
+    if current_user.is_authenticated:
+        return render_template('admin/buhgalter.html')
+    return redirect(url_for('main.index'))
+
+
+
 @admin.route('/area')
 def area():
     areas = Session.query(Area).all()

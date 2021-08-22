@@ -8,8 +8,30 @@
     <meta name="description" content="{% block description%}{% endblock %}" />
     <meta name="keywords" content="{% block keywords%}{% endblock %}" />
     <meta name="robots" content="index, follow" />
+        <style>
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+
+    </style>
     <link href="{! url_for('static', filename='css/bootstrap.min.css') !}" rel="stylesheet">
     <link href="{! url_for('static', filename='css/style.css') !}" rel="stylesheet">
+    <link href="{! url_for('static', filename='css/carousel.css') !}" rel="stylesheet">
+	<link href="{! url_for('static', filename='css/vertical.min.css') !}" rel="stylesheet">
+	<link href="{! url_for('static', filename='css/theme.css') !}" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.1.5/vue.global.prod.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vuex/4.0.0/vuex.global.prod.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.js"></script>
@@ -18,37 +40,74 @@
 </head>
 <body>
 {% block headeradmin %}
-    <header class="navbar navbar-dark bg-dark sticky-top p-0">
-            <a class="navbar-brand py-1 px-3" href="#">LOGO</a>
-            <ul class="navbar-nav d-flex flex-row pe-3">
-                <li class="nav-item px-2">
-                    <a class="nav-link" href="{!url_for('main.index')!}">
-                        <span class="pe-1 justify-content-center">Главная</span>
-                    </a>
-                </li>
-                {% if current_user.is_anonymous %}
-                <li class="nav-item px-2">
+<header>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-red">
+    <div class="container">
+
+	  <a class="navbar-brand" href="{!url_for('main.index')!}"><img src="{! url_for('static', filename='images/logo_hack.png') !}" alt="" /></a>
+
+	  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+	  <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav me-auto mb-2 mb-md-0 size-18 uppercase ">
+<!--          <li class="nav-item">-->
+<!--            <a class="nav-link active" aria-current="page" href="#">Новости и события</a>-->
+<!--          </li>-->
+		  <li class="nav-item">
+            <a class="nav-link " aria-current="page" href="#">Площадка</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Резиденты</a>
+          </li>
+         <li class="nav-item">
+            <a class="nav-link" href="#">Проекты</a>
+          </li>
+		  <li class="nav-item">
+            <a class="nav-link" href="#">Люди</a>
+          </li>
+		  <li class="nav-item">
+            <a class="nav-link" href="#">Контакты</a>
+          </li>
+		  <li class="nav-item">
+            <a class="nav-link" href="{!url_for('admin.index')!}">Админ панель</a>
+          </li>
+                            {% if current_user.is_anonymous %}
+                <li class="nav-item">
                     <a class="nav-link" href="{!url_for('admin.login')!}">
                         <span class="pe-1 justify-content-center">Авторизация</span>
                     </a>
                 </li>
                 {%else%}
-                <li class="nav-item px-2">
+                <li class="nav-item">
                     <a class="nav-link" href="{!url_for('chat.index')!}">
                         <span class="pe-1 justify-content-center">Общение</span>
                     </a>
                 </li>
-                <li class="nav-item px-2">
+                <li class="nav-item">
                     <a class="nav-link" href="{!url_for('admin.logout')!}">
                         <span class="pe-1 justify-content-center">Выход</span>
                     </a>
                 </li>
                 {%endif%}
-            </ul>
-        </nav>
-    </header>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
 {% endblock %}
-    <div id="content">{% block content %}{% endblock %}</div>
+<main>
+    {% block content %}{% endblock %}
+
+
+  <!-- FOOTER -->
+  <footer class="container">
+    <p class="float-end"><a href="#">Back to top</a></p>
+    <p>&copy; 2017–2021 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+  </footer>
+</main>
+
 <!--    <div id="footer">-->
 <!--        {% block footer %}-->
 <!--        &copy; Copyright 2021 by-->

@@ -6,6 +6,126 @@
     {! super() !}
 {% endblock %}
 {% block content %}
-    <h1>Main Page</h1>
-      Welcome to my awesome homepage.
+ <div id="myCarousel" class="carousel slide mb-0" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+     <div class="carousel-item active">
+        <svg class="bd-placeholder-img" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false" ><rect width="100%" height="100%" fill="#777"/></svg>
+
+        <div class="container">
+          <div class="carousel-caption text-start">
+            <h1 class="uppercase size-18">Cейчас люди смотрят:</h1>
+            <p class="size-32">ГИПЕР КРЕАТИВНАЯ СЕТКА СООБЩЕНИЙ ИЗ ЯНДЕКС КАРТ.</p>
+            <p><a class="btn btn-lg btn-secondary btn-sm" href="#">Sign up today</a></p>
+          </div>
+        </div>
+      </div>
+            </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+    <div class="section bg-dark bg-red">
+		<div class="container pt-20 pb-20 align-right size-16 uppercase">
+			<a href="#">Новости и события</a> &nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="#">Галереи и выставки</a> &nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="#">Календарь мероприятий</a> &nbsp;&nbsp;&nbsp;&nbsp;
+			<a href="#">Посетителям</a> &nbsp;&nbsp;&nbsp;&nbsp;
+			<a class="2link" href="#">КОВИД 19</a>
+		</div>
+	</div>
+
+  <div class="small-section bg-dark mt-0">
+	<div class="container">
+		<div class="row">
+
+			<div class="col-md-3">
+				Выбрать месяц
+			</div>
+			<div class="col-md-3">
+				Выбрать форму выставки
+			</div>
+			<div class="col-md-6">
+				<form class="d-flex mt-0 mb-0">
+				  <input class="form-control me-2 btn-sm" type="search" placeholder="Начните вводить и мы будем подсказывать" aria-label="Search">
+				  <button class="btn btn-secondary btn-sm" type="submit">НАЙТИ</button>
+				</form>
+			</div>
+		</div>
+	</div>
+  </div>
+
+  <div class="container marketing mt-40">
+
+    <!-- Three columns of text below the carousel -->
+    <div class="row">
+      <div class="col-lg-4">
+        <img src="{! url_for('static', filename='images/11.jpg')!}" alt="" />
+
+        <h2 class="size-14 mt-20 uppercase">Штатный заголовок для новости</h2>
+        <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
+        <p><a class="btn btn-secondary btn-sm" href="#">View details &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <img src="{! url_for('static', filename='images/11.jpg')!}" alt="" />
+
+        <h2 class="size-14 mt-20 uppercase">Штатный заголовок для новости</h2>
+        <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
+        <p><a class="btn btn-secondary btn-sm" href="#">View details &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+      <div class="col-lg-4">
+        <img src="{! url_for('static', filename='images/11.jpg')!}" alt="" />
+
+        <h2 class="size-14 mt-20 uppercase">Штатный заголовок для новости</h2>
+        <p>And lastly this, the third column of representative placeholder content.</p>
+        <p><a class="btn btn-secondary btn-sm" href="#">View details &raquo;</a></p>
+      </div><!-- /.col-lg-4 -->
+    </div><!-- /.row -->
+
+
+    <!-- START THE FEATURETTES -->
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7">
+        <h2 class="featurette-heading">Штатный заголовок для выставки</h2>
+        <p class="lead">Короткое описание и слайдер справа.</p>
+      </div>
+      <div class="col-md-5">
+        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+
+      </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row featurette">
+      <div class="col-md-7 order-md-2">
+        <h2 class="featurette-heading">Штатный заголовок для выставки</h2>
+        <p class="lead">Короткое описание и слайдер слева.</p>
+      </div>
+      <div class="col-md-5 order-md-1">
+        <svg class="bd-placeholder-img bd-placeholder-img-lg featurette-image img-fluid mx-auto" width="500" height="500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 500x500" preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title><rect width="100%" height="100%" fill="#eee"/><text x="50%" y="50%" fill="#aaa" dy=".3em">500x500</text></svg>
+
+      </div>
+    </div>
+
+
+    <hr class="featurette-divider">
+
+
+
+    <!-- /END THE FEATURETTES -->
+
+  </div><!-- /.container -->
 {% endblock %}
