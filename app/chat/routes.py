@@ -15,7 +15,7 @@ CORS(chat_api)
 @login_required
 def index():
         Session.close()
-        return render_template('chat/chat.html', uid=current_user.id)
+        return render_template('chat/chat.html', uid=current_user.username)
 
 @chat.route('/getchats')
 @chat_api.route('/getchats')

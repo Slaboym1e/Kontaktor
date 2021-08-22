@@ -7,7 +7,7 @@ const appChat = {
     data() {
         return {
             users: [],
-            checkUsers:[],
+            checkUsers: [],
             currentChatId: 0,
             uid: '',
             chatMessage: '',
@@ -15,25 +15,22 @@ const appChat = {
             chatMessages: []
         }
     },
-    // computed:
-    // {
-    //     activeChat(index){
-    //         if (index==0){
-    //             return {active: true}
-    //         }
-    //     }
-    // },
     methods: {
         send() {
             //console.log("Send in chat:" + id + " message:" + this.chatMessage)
             let message = {chat_id: this.currentChatId, message: this.chatMessage}
-            self.axios.post(api_post_send_message,  JSON.stringify(message), {headers: {'Accept':'aplication/json','Content-Type': 'application/json'}})
-            .then(response => {
-                //console.log(response.data);
+            self.axios.post(api_post_send_message, JSON.stringify(message), {
+                headers: {
+                    'Accept': 'aplication/json',
+                    'Content-Type': 'application/json'
+                }
             })
-            .catch(function (error) {
-                console.log(error);
-            });
+                .then(response => {
+                    //console.log(response.data);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
             this.chatMessage = ''
             self.axios.get(api_get_chat_message + this.currentChatId).then((response) => {
                 this.chatMessages = response.data
@@ -47,7 +44,7 @@ const appChat = {
             }
             this.chats[index].active = true
             self.axios.get(api_get_chat_message + id).then((response) => {
-                console.log(response.data)
+                //console.log(response.data)
                 if (response.data != "")
                     this.chatMessages = response.data
                 else
@@ -59,43 +56,36 @@ const appChat = {
                 self.axios.get(api_get_chat_message + this.currentChatId).then((response) => {
                     this.chatMessages = response.data
                 })
-                }, 550);
+            }, 550);
         },
         AddChat() {
             let users = {users: this.checkUsers}
-            self.axios.post(api_post_create_chat,  JSON.stringify(users), {headers: {'Accept':'aplication/json','Content-Type': 'application/json'}})
-            .then(response => {
-                if(response.data.id!="")
-                {
-                    this.checkUsers = []
-                    self.axios.get(api_get_chat).then((response) => {
-                    this.chats = response.data
-
-                    for (let i in this.chats) {
-                        if (i!= response.data.id)
-                            this.chats[i].active = false
-                        else
-                            this.chats[i].active = true
-                    }
-                    this.currentChatId = response.data.id
-        })
+            self.axios.post(api_post_create_chat, JSON.stringify(users), {
+                headers: {
+                    'Accept': 'aplication/json',
+                    'Content-Type': 'application/json'
                 }
-                //console.log(response.data);
             })
-            .catch(function (error) {
-                console.log(error);
-            });
-            //this.changeOperation.splice(id, 1)
+                .then(response => {
+                    if (response.data.id != "") {
+                        this.checkUsers = []
+                        self.axios.get(api_get_chat).then((response) => {
+                            this.chats = response.data
+
+                            for (let i in this.chats) {
+                                if (i != response.data.id)
+                                    this.chats[i].active = false
+                                else
+                                    this.chats[i].active = true
+                            }
+                            this.currentChatId = response.data.id
+                        })
+                    }
+                })
+                .catch(function (error) {
+                    //console.log(error);
+                });
         }
-        // addOperatorOperator() {
-        //     this.operatorList[this.operatorList.length] = {
-        //         id: this.operatorList.length,
-        //         priority: this.operatorList.length+1,
-        //         operation: 0,
-        //         operator: 0,
-        //         machine: 0
-        //     }
-        // }
     },
     created() {
 
@@ -110,9 +100,6 @@ const appChat = {
             }
             this.currentChatId = response.data[0].id
         })
-        // self.axios.get(url_getoperators_api).then((response) => {
-        //     this.operators = response.data
-        // })
 
     },
     mounted() {
@@ -125,6 +112,6 @@ const appChat = {
     }
 
 }
-// //
+
 const appchat = Vue.createApp(appChat).use(VueAxios, axios)
 appchat.mount('#appchat')
