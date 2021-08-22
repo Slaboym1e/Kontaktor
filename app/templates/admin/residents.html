@@ -1,0 +1,41 @@
+{% extends "admin/baseadmin.html" %}
+{% block title %}Главная{% endblock %}
+{% block description %}Главная{% endblock %}
+{% block keywords %}Главная{% endblock %}
+{% block head %}
+{! super() !}
+{% endblock %}
+{% block headeradmin %}{! super() !}{% endblock %}
+{% block content %}
+
+    <div class="col-md-9 ms-sm-auto col-lg-10 px-md-4" >
+        <a class="mt-5 float-end" href="{!url_for('admin.rescreate')!}"><button type="button " class="btn btn-dark ">Добавить резидента</button></a>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Название резидента</th>
+                <th scope="col">Директор</th>
+                <th scope="col" colspan="2">Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            {%if residents != [] %}
+            {%for r in residents %}
+            <tr>
+                <th>{!r.id!}</th>
+                <td>{!r.resname!} </td>
+                <td>{!r.director_id!}</td>
+                <td><a href="#">Edit</a></td>
+                <td><a href="#">Delete</a></td>
+            </tr>
+            {%endfor%}
+            {%else%}
+            <tr>
+                <td colspan="6">Резидента</td>
+            </tr>
+            {%endif%}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

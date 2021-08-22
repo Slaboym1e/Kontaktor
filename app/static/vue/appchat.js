@@ -98,7 +98,8 @@ const appChat = {
                 else
                     this.chats[i].active = true
             }
-            this.currentChatId = response.data[0].id
+            if(response.data!="")
+                this.currentChatId = response.data[0].id
         })
 
     },
