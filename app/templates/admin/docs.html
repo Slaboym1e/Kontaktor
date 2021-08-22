@@ -1,9 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
+{% extends "admin/baseadmin.html" %}
+{% block title %}Управление помещениями{% endblock %}
+{% block description %}Управление помещениями{% endblock %}
+{% block keywords %}Управление помещениями{% endblock %}
+{% block head %}
+    {! super() !}
+{% endblock %}
+{% block headeradmin %}{! super() !}{% endblock %}
+{% block content %}
 <body>
   <table class="table">
   <thead>
@@ -30,5 +33,4 @@
     {% endfor %}
   </tbody>
   </table>
-</body>
-</html>
+{% endblock %}

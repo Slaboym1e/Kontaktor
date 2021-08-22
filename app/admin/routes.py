@@ -10,7 +10,7 @@ from array import *
 @admin.route('/')
 def index():
         if current_user.is_authenticated:
-            return render_template('admin/admin.html')
+            return render_template('admin/index.html')
         return redirect(url_for('main.index'))
 
 @admin.route('/area')

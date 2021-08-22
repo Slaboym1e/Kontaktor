@@ -9,8 +9,8 @@ from app import Base, engine,Session
 class User(UserMixin, Base):
     __tablename__ = 'user'
     id = Column(Integer, primary_key=True)
-    username   = Column(String(64), unique=True, nullable=False)
-    group_id   = Column(String(12), unique=False, nullable=True, default='user')
+    username = Column(String(64), unique=True, nullable=False)
+    group_id = Column(String(12), unique=False, nullable=True, default='user')
 
 
 
@@ -34,17 +34,17 @@ def load_user(id):
 
 class residents(Base):
     __tablename__='Residents'
-    id=Column(Integer,primary_key=True,autoincrement=True)
-    resname=Column(String(255),nullable=True)
-    director_id = Column(Integer,nullable=False)
+    id=Column(Integer, primary_key=True, autoincrement=True)
+    resname=Column(String(255), nullable=True)
+    director_id = Column(Integer, nullable=False)
     status = Column(Integer, nullable=False)
     time_decay = Column(DateTime, nullable=True)
 
 class staff(Base):
     __tablename__='resident_staff'
     id = Column(Integer, primary_key=True, autoincrement=True)
-    resident_id = Column(Integer,nullable=False)
-    user_id = Column(Integer,nullable=False)
+    resident_id = Column(Integer, nullable=False)
+    user_id = Column(Integer, nullable=False)
 
 
 class Area(UserMixin, Base):
