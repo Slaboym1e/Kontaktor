@@ -1,3 +1,4 @@
+
 def mserialize(val):
     return {v: getattr(val, v) for v in val.__dict__ if v!="_sa_instance_state"}
 

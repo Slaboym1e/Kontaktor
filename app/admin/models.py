@@ -37,8 +37,6 @@ class residents(Base):
     id=Column(Integer, primary_key=True, autoincrement=True)
     resname=Column(String(255), nullable=True)
     director_id = Column(Integer, nullable=False)
-    status = Column(Integer, nullable=False)
-    time_decay = Column(DateTime, nullable=True)
 
 class staff(Base):
     __tablename__='resident_staff'
