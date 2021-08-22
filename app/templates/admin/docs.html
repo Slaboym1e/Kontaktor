@@ -7,6 +7,8 @@
 {% endblock %}
 {% block headeradmin %}{! super() !}{% endblock %}
 {% block content %}
+<div class="col-md-9 ms-sm-auto col-lg-10 px-md-4" >
+          <a class="mt-5 float-end" href="{!url_for('admin.areacreate')!}"><button type="button " class="btn btn-dark ">Добавить помещение</button></a>
   <table class="table">
   <thead>
     <tr>
@@ -14,6 +16,7 @@
       <th scope="col">Название</th>
       <th scope="col">Занятость</th>
       <th scope="col">Площадь</th>
+      <th scope="col" colspan="2">Действия</th>
     </tr>
   </thead>
   <tbody>
@@ -27,9 +30,11 @@
       <td>Свободно</td>
       {% endif %}
       <td>{! area.square !}</td>
-      <td><a href="more/{! area.id !}">Редактировать</a></td>
+      <td><a href="#">Редактировать</a></td>
+      <td><a href="#">Удалить</a></td>
     </tr>
     {% endfor %}
   </tbody>
   </table>
+</div>
 {% endblock %}

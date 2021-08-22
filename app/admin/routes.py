@@ -4,7 +4,7 @@ from app import Session
 from app.admin.models import User, Area, residents, staff
 from flask_login import current_user, login_user, logout_user, login_required
 from app.admin.WTForms import LoginForm, CreateResidentForm, CreateAreatForm
-from app.admin.utils import createListUsers
+from app.admin.utils import createListUsers, createListAreas
 from app.chat.utils import enumList
 import app.main
 from array import *
@@ -33,29 +33,22 @@ def residentsview():
         print(resident[i].director_id)
     return render_template('admin/residents.html', residents=resident)
 
-
-@admin.route('/more/<int:id>')
-def more(id):
-    area = Session.query(Area).filter_by(id=id).first()
-    square = round(float(area.height) * float(area.width), 2)
-    user = Session.query(User).filter_by(id=area.user_id).first()
-    Session.close()
-    return render_template('admin/more.html', square=square, area=area, user=user)
-
-
 @admin.route('/residentcreate', methods=['GET', 'POST'])
 def rescreate():
     form = CreateResidentForm()
     form.dirid.choices = createListUsers(2)
+    form.areaid.choices = createListAreas()
     if form.validate_on_submit():
-        if form.dirid.data !="":
+        if form.dirid.data !="" and form.areaid.data != "":
             res = residents(resname=form.resname.data, director_id=form.dirid.data)
             Session.add(res)
             Session.commit()
             Session.add(staff(resident_id=res.id, user_id=res.director_id))
+            area = Session.query(Area).filter_by(id=form.areaid.data).first()
+            area.user_id = res.id
             Session.commit()
             Session.close()
-            redirect(url_for('admin.residentsview'))
+            return redirect(url_for('admin.residentsview'))
     Session.close()
     return render_template('admin/rescreate.html', form=form)
 
@@ -66,7 +59,7 @@ def areacreate():
         Session.add(Area(title=form.arname.data,height=form.heigth.data,width=form.width.data, user_id=0))
         Session.commit()
         Session.close()
-        redirect(url_for('admin.areacreate'))
+        redirect(url_for('admin.area'))
     Session.close()
     return render_template('admin/areacreate.html', form=form)
 # @admin.route('/areaa')
