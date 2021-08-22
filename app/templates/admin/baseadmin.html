@@ -43,18 +43,12 @@
                         </li>
                         <hr class="dropdown-divider">
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{!url_for('admin.logout')!}">
                                 <i class="fas fa-sign-out-alt"></i>
                                 Выйти
                             </a>
                         </li>
                     </ul>
-                </li>
-                <li class="nav-item px-2">
-                    <a class="nav-link" href="{!url_for('admin.logout')!}">
-                        <span class="pe-1 justify-content-center">Выход</span>
-                        <i class="far fa-user-circle ps-1" style="font-size: 32px"></i>
-                    </a>
                 </li>
             </ul>
         </nav>
@@ -71,12 +65,13 @@
                 <a class="" data-bs-toggle="collapse" href="#residents" role="button" aria-expanded="false" aria-controls="collapseExample">Резиденты площадки</a>
                 <div class="collapse" id="residents">
                     <div class="card card-body">
+                            <a class="nav-link" href="{!url_for('admin.residents')!}">Управление персонами</a>
                             <a class="nav-link" href="#">Общая информация</a>
                             <a class="nav-link" href="#">Заявки на мероприятия</a>
                             <a class="nav-link" href="#">Бухгалтерия</a>
                             <a class="nav-link" href="#">Документы</a>
                             <a class="nav-link" href="#">Статистика</a>
-                            <a class="nav-link" href="#">Управление персонами</a>
+
                     </div>
                 </div>
               </li>

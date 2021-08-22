@@ -22,6 +22,11 @@ def area():
     Session.close()
     return render_template('admin/docs.html', areas=areas)
 
+@admin.route('/residents')
+def residents():
+    return render_template('admin/residents.html')
+
+
 @admin.route('/more/<int:id>')
 def more(id):
     area = Session.query(Area).filter_by(id=id).first()
