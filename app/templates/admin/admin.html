@@ -1,16 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+{% extends "maintemp.html" %}
+{% block title %}Главная{% endblock %}
+{% block description %}Главная{% endblock %}
+{% block keywords %}Главная{% endblock %}
+{% block head %}
+{! super() !}
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
 
-    <link href="../../static/fontawesome/css/all.css" rel="stylesheet">
-    <link href="../../static/css/admin.css" rel="stylesheet">
-    <link href="{! url_for('static', filename='fontawesome/css/all.css') !}" rel="stylesheet">
-    <title>Admin Panel</title>
-</head>
-<body>
+        <form class="" method="POST" action="{! url_for('admin.authorize') !}">
+            {! form.hidden_tag() !}
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">Пожалуйста, выирите пользователя:</label>
 
+                    <select name="comp_select" class="selectpicker form-control" id="exampleFormControlInput1">
+                        {% for user in user %}
+                        <option value="{! user.username !}">{! user.username !}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Войти</button>
+            </div>
+        </form>
 
-
-</body>
-</html>
+    </div>
+</div>
+{% endblock %}

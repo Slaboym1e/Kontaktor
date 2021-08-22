@@ -1,0 +1,25 @@
+{% extends "maintemp.html" %}
+{% block title %}Главная{% endblock %}
+{% block description %}Главная{% endblock %}
+{% block keywords %}Главная{% endblock %}
+{% block head %}
+{! super() !}
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row">
+
+        <form class="" method="POST" action="{! url_for('admin.reg') !}">
+            {! form.hidden_tag() !}
+            <div class="mb-3">
+                <label for="exampleFormControlInput2" class="form-label">Пожалуйста, введите имя пользователя:</label>
+                    <input class="form-control" type="text" value="" name="new_user" id="exampleFormControlInput2">
+                </div>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Создать</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+{% endblock %}
