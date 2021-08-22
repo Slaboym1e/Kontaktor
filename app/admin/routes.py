@@ -70,12 +70,16 @@ def logout():
 
 @admin.route('/registre', methods=['GET', 'POST'])
 def reg():
-    user = User(username = "buhgalet", group_id="user")
-    Session.add(user)
-    Session.commit()
-    Session.close()
-    user = Session.query(User).all()
-    return 140
+    form = LoginForm()
+    if request.method == "POST":
+        username = request.form.get('new_user')
+        user = User(username = username, group_id=2)
+        Session.add(user)
+        Session.commit()
+        Session.close()
+        user = Session.query(User).all()
+        return redirect(url_for('admin.login'))
+    return render_template("admin/registre.html", form=form)
 
 
 @admin.errorhandler(404)
