@@ -3,7 +3,7 @@ from flask import render_template, request, flash, redirect, url_for, session
 from app import Session
 from app.admin.models import User, Area, residents, staff
 from flask_login import current_user, login_user, logout_user, login_required
-from app.admin.WTForms import LoginForm, CreateResidentForm
+from app.admin.WTForms import LoginForm, CreateResidentForm, CreateAreatForm
 from app.admin.utils import createListUsers
 from app.chat.utils import enumList
 import app.main
@@ -59,7 +59,16 @@ def rescreate():
     Session.close()
     return render_template('admin/rescreate.html', form=form)
 
-
+@admin.route('/areacreate', methods=['GET', 'POST'])
+def areacreate():
+    form = CreateAreatForm()
+    if form.validate_on_submit():
+        Session.add(Area(title="Помещение",height=form.heigth.data,width=form.width.data, user_id=0))
+        Session.commit()
+        Session.close()
+        redirect(url_for('admin.areacreate'))
+    Session.close()
+    return render_template('admin/areacreate.html', form=form)
 # @admin.route('/areaa')
 # def areaa():
 #     area = Area(title='Помидоры', width='140', height='200', user_id='1')
