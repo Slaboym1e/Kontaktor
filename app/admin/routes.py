@@ -4,7 +4,7 @@ from app import Session
 from app.admin.models import User, Area, residents, staff
 from flask_login import current_user, login_user, logout_user, login_required
 from app.admin.WTForms import LoginForm, CreateResidentForm, CreateAreatForm
-from app.admin.utils import createListUsers
+from app.admin.utils import createListUsers, createListAreas
 from app.chat.utils import enumList
 import app.main
 from array import *
@@ -37,15 +37,18 @@ def residentsview():
 def rescreate():
     form = CreateResidentForm()
     form.dirid.choices = createListUsers(2)
+    form.areaid.choices = createListAreas()
     if form.validate_on_submit():
-        if form.dirid.data !="":
+        if form.dirid.data !="" and form.areaid.data != "":
             res = residents(resname=form.resname.data, director_id=form.dirid.data)
             Session.add(res)
             Session.commit()
             Session.add(staff(resident_id=res.id, user_id=res.director_id))
+            area = Session.query(Area).filter_by(id=form.areaid.data).first()
+            area.user_id = res.id
             Session.commit()
             Session.close()
-            redirect(url_for('admin.residentsview'))
+            return redirect(url_for('admin.residentsview'))
     Session.close()
     return render_template('admin/rescreate.html', form=form)
 

@@ -8,6 +8,7 @@ class LoginForm(FlaskForm):
 class CreateResidentForm(FlaskForm):
     resname = StringField('Название Резидента')
     dirid = SelectField('Выбор главы', default=0)
+    areaid = SelectField('Выбор свободного помещения', default=0)
     subbutton = SubmitField('Создать')
 
 class CreateAreatForm(FlaskForm):
